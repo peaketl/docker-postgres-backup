@@ -1,0 +1,21 @@
+version: "3.0"
+
+services:
+  db:
+    container_name: app-db
+    image: postgres
+    env_file:
+      - .env.postgres.docker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - <host path>:/etc/postgres.backups
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - net-application
+volumes:
+  pgdata:
+    external: false
+networks:
+  net-application:
